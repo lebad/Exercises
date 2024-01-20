@@ -6,12 +6,40 @@
 //
 
 import Foundation
+import Combine
 
 class ExercisesViewModel: ObservableObject {
-	@Published var screenTitle = ""
+	@Published var screenTitle = "Exercises"
 	@Published var exercises: [ExerciseItem] = []
+	@Published var isLoading = false
+	@Published var errorMessage: String? = nil
+	
+	private var cancellables = Set<AnyCancellable>()
+	private let exerciseService: ExerciseServiceProtocol
+	
+	init(exerciseService: ExerciseServiceProtocol) {
+		self.exerciseService = exerciseService
+	}
 	
 	func fetchExercises() {
+		isLoading = true
 		
+		exerciseService.fetchExercises()
+			.sink { [weak self] completion in
+				self?.isLoading = false
+				if case .failure(let error) = completion, 
+					let serviceError = error as? ExerciseServiceError {
+					switch serviceError {
+					case .undefinedError:
+						self?.errorMessage = "Something went wrong. Please try again later"
+					case let .serverError(errorText):
+						self?.errorMessage = errorText
+					}
+				}
+			} receiveValue: { [weak self] exercises in
+				self?.exercises = exercises
+			}
+			.store(in: &cancellables)
+
 	}
 }

@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ExercisesView: View {
-	@StateObject var viewModel = ExercisesViewModel()
+	@StateObject var viewModel = ExercisesViewModel(exerciseService: ExerciseService())
 	
     var body: some View {
 		NavigationView {
@@ -17,11 +18,9 @@ struct ExercisesView: View {
 					AsyncImage(url: exercise.imageUrl) { image in
 						image
 							.resizable()
-//							.scaledToFit()
 					} placeholder: {
 						Image(systemName: "photo")
 							.resizable()
-//							.scaledToFit()
 							.aspectRatio(contentMode: .fit)
 							.frame(width: 50, height: 50)
 					}
@@ -41,9 +40,16 @@ struct ExercisesView: View {
     }
 }
 
+class ExerciseServicePreviewFake: ExerciseServiceProtocol {
+	func fetchExercises() -> AnyPublisher<[ExerciseItem], Error> {
+		Empty<[ExerciseItem], Error>()
+			.eraseToAnyPublisher()
+	}
+}
+
 extension ExercisesViewModel {
 	static var preview: ExercisesViewModel {
-		let viewModel = ExercisesViewModel()
+		let viewModel = ExercisesViewModel(exerciseService: ExerciseServicePreviewFake())
 		viewModel.screenTitle = "Exercises"
 		viewModel.exercises = [
 			ExerciseItem(

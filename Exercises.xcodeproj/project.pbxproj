@@ -14,6 +14,8 @@
 		551549AB2B5C425F005AF503 /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549AA2B5C425F005AF503 /* ExercisesView.swift */; };
 		551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549AD2B5C5A32005AF503 /* ExerciseItem.swift */; };
 		551549B12B5C5AB2005AF503 /* ExercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B02B5C5AB2005AF503 /* ExercisesViewModel.swift */; };
+		551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B32B5C65CE005AF503 /* ExerciseService.swift */; };
+		551549B82B5C8C0D005AF503 /* Data+Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B72B5C8C0D005AF503 /* Data+Parsing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		551549AA2B5C425F005AF503 /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
 		551549AD2B5C5A32005AF503 /* ExerciseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		551549B02B5C5AB2005AF503 /* ExercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModel.swift; sourceTree = "<group>"; };
+		551549B32B5C65CE005AF503 /* ExerciseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseService.swift; sourceTree = "<group>"; };
+		551549B72B5C8C0D005AF503 /* Data+Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Parsing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 		551549922B5C3B2C005AF503 /* Exercises */ = {
 			isa = PBXGroup;
 			children = (
+				551549B52B5C8BDB005AF503 /* Common */,
 				551549A92B5C4100005AF503 /* ExercisesScreen */,
 				551549932B5C3B2C005AF503 /* AppDelegate.swift */,
 				551549952B5C3B2C005AF503 /* SceneDelegate.swift */,
@@ -82,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				551549AD2B5C5A32005AF503 /* ExerciseItem.swift */,
+				551549B32B5C65CE005AF503 /* ExerciseService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -100,6 +106,22 @@
 				551549AA2B5C425F005AF503 /* ExercisesView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		551549B52B5C8BDB005AF503 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				551549B62B5C8BED005AF503 /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		551549B62B5C8BED005AF503 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				551549B72B5C8C0D005AF503 /* Data+Parsing.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,7 +195,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */,
+				551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */,
 				551549AB2B5C425F005AF503 /* ExercisesView.swift in Sources */,
+				551549B82B5C8C0D005AF503 /* Data+Parsing.swift in Sources */,
 				551549B12B5C5AB2005AF503 /* ExercisesViewModel.swift in Sources */,
 				551549942B5C3B2C005AF503 /* AppDelegate.swift in Sources */,
 				551549962B5C3B2C005AF503 /* SceneDelegate.swift in Sources */,
