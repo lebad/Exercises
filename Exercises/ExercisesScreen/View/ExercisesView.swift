@@ -7,9 +7,12 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
 
 struct ExercisesView: View {
 	@StateObject var viewModel = ExercisesViewModel(exerciseService: ExerciseService())
+	
+	weak var viewController: UIViewController?
 	
     var body: some View {
 		NavigationView {
@@ -48,17 +51,26 @@ struct ExerciseView: View {
 	
 	var body: some View {
 		HStack {
-			AsyncImage(url: imageUrl) { image in
-				image
-					.resizable()
-			} placeholder: {
-				Image(systemName: "photo")
-					.resizable()
-					.aspectRatio(contentMode: .fit)
-					.frame(width: 50, height: 50)
-			}
-			.frame(width: 50, height: 50)
-			.clipShape(RoundedRectangle(cornerRadius: 10))
+			KFImage(imageUrl)
+				.placeholder { _ in
+					Image(systemName: "photo")
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.frame(width: 50, height: 50)
+				}
+				.frame(width: 50, height: 50)
+				.clipShape(RoundedRectangle(cornerRadius: 10))
+//			AsyncImage(url: imageUrl) { image in
+//				image
+//					.resizable()
+//			} placeholder: {
+//				Image(systemName: "photo")
+//					.resizable()
+//					.aspectRatio(contentMode: .fit)
+//					.frame(width: 50, height: 50)
+//			}
+//			.frame(width: 50, height: 50)
+//			.clipShape(RoundedRectangle(cornerRadius: 10))
 			
 			Text(name)
 				.font(.headline)
