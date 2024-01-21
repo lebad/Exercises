@@ -13,23 +13,16 @@ struct ExercisesView: View {
 	
     var body: some View {
 		NavigationView {
-			List(viewModel.exercises) { exercise in
-				HStack {
-					AsyncImage(url: exercise.imageUrl) { image in
-						image
-							.resizable()
-					} placeholder: {
-						Image(systemName: "photo")
-							.resizable()
-							.aspectRatio(contentMode: .fit)
-							.frame(width: 50, height: 50)
+			HStack {
+				if viewModel.isLoading {
+					ProgressView()
+				} else {
+					List(viewModel.exercises) { exercise in
+						ExerciseView(
+							name: exercise.name,
+							imageUrl: exercise.imageUrl
+						)
 					}
-					.frame(width: 50, height: 50)
-					.clipShape(RoundedRectangle(cornerRadius: 10))
-					
-					Text(exercise.name)
-						.font(.headline)
-						.padding(.leading, 8)
 				}
 			}
 		}
@@ -37,8 +30,44 @@ struct ExercisesView: View {
 		.onAppear {
 			viewModel.fetchExercises()
 		}
+		.alert(isPresented: $viewModel.shouldShowAlert) {
+			Alert(
+				title: Text(viewModel.errorTitle),
+				message: Text(viewModel.errorMessage),
+				dismissButton: .default(Text(viewModel.errorOkButtonTitle), action: {
+					viewModel.dismissAlertButtonAction()
+				})
+			)
+		}
     }
 }
+
+struct ExerciseView: View {
+	let name: String
+	let imageUrl: URL?
+	
+	var body: some View {
+		HStack {
+			AsyncImage(url: imageUrl) { image in
+				image
+					.resizable()
+			} placeholder: {
+				Image(systemName: "photo")
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.frame(width: 50, height: 50)
+			}
+			.frame(width: 50, height: 50)
+			.clipShape(RoundedRectangle(cornerRadius: 10))
+			
+			Text(name)
+				.font(.headline)
+				.padding(.leading, 8)
+		}
+	}
+}
+
+// MARK: - Preview
 
 class ExerciseServicePreviewFake: ExerciseServiceProtocol {
 	func fetchExercises() -> AnyPublisher<[ExerciseItem], Error> {

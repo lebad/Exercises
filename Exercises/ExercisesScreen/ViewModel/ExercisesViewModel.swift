@@ -12,7 +12,11 @@ class ExercisesViewModel: ObservableObject {
 	@Published var screenTitle = "Exercises"
 	@Published var exercises: [ExerciseItem] = []
 	@Published var isLoading = false
-	@Published var errorMessage: String? = nil
+	
+	@Published var shouldShowAlert = false
+	@Published var errorTitle = "Error"
+	@Published var errorMessage = ""
+	@Published var errorOkButtonTitle = "OK"
 	
 	private var cancellables = Set<AnyCancellable>()
 	private let exerciseService: ExerciseServiceProtocol
@@ -23,12 +27,12 @@ class ExercisesViewModel: ObservableObject {
 	
 	func fetchExercises() {
 		isLoading = true
-		
 		exerciseService.fetchExercises()
 			.sink { [weak self] completion in
 				self?.isLoading = false
 				if case .failure(let error) = completion, 
 					let serviceError = error as? ExerciseServiceError {
+					self?.shouldShowAlert = true
 					switch serviceError {
 					case .undefinedError:
 						self?.errorMessage = "Something went wrong. Please try again later"
@@ -40,6 +44,9 @@ class ExercisesViewModel: ObservableObject {
 				self?.exercises = exercises
 			}
 			.store(in: &cancellables)
-
+	}
+	
+	func dismissAlertButtonAction() {
+		shouldShowAlert = false
 	}
 }
