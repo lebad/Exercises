@@ -17,6 +17,7 @@
 		551549B12B5C5AB2005AF503 /* ExercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B02B5C5AB2005AF503 /* ExercisesViewModel.swift */; };
 		551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B32B5C65CE005AF503 /* ExerciseService.swift */; };
 		551549B82B5C8C0D005AF503 /* Data+Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B72B5C8C0D005AF503 /* Data+Parsing.swift */; };
+		551549BF2B5DC330005AF503 /* ExerciseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549BE2B5DC330005AF503 /* ExerciseDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		551549B02B5C5AB2005AF503 /* ExercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModel.swift; sourceTree = "<group>"; };
 		551549B32B5C65CE005AF503 /* ExerciseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseService.swift; sourceTree = "<group>"; };
 		551549B72B5C8C0D005AF503 /* Data+Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Parsing.swift"; sourceTree = "<group>"; };
+		551549BE2B5DC330005AF503 /* ExerciseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailViewController.swift; sourceTree = "<group>"; };
 		9E8162C47D350EED5C6644DE /* Pods-Exercises.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exercises.debug.xcconfig"; path = "Target Support Files/Pods-Exercises/Pods-Exercises.debug.xcconfig"; sourceTree = "<group>"; };
 		9FCE88FE40843D19956FD93C /* Pods_Exercises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Exercises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -145,6 +147,7 @@
 		551549BB2B5DB9A5005AF503 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				551549BE2B5DC330005AF503 /* ExerciseDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */,
 				551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */,
 				551549AB2B5C425F005AF503 /* ExercisesView.swift in Sources */,
+				551549BF2B5DC330005AF503 /* ExerciseDetailViewController.swift in Sources */,
 				551549B82B5C8C0D005AF503 /* Data+Parsing.swift in Sources */,
 				551549B12B5C5AB2005AF503 /* ExercisesViewModel.swift in Sources */,
 				551549942B5C3B2C005AF503 /* AppDelegate.swift in Sources */,

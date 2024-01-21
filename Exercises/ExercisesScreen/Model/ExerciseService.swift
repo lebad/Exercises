@@ -23,7 +23,14 @@ class ExerciseService: ExerciseServiceProtocol {
 	private static let languageId = 2
 	
 	func fetchExercises() -> AnyPublisher<[ExerciseItem], Error> {
-		guard let url = URL(string: "https://wger.de/api/v2/exercisebaseinfo/") else {
+		guard var urlComponents = URLComponents(string: "https://wger.de/api/v2/exercisebaseinfo/") else {
+			return Fail<[ExerciseItem], Error>(error: ExerciseServiceError.undefinedError)
+				.eraseToAnyPublisher()
+		}
+		urlComponents.queryItems = [
+			URLQueryItem(name: "variations", value: "1")
+		]
+		guard let url = urlComponents.url else {
 			return Fail<[ExerciseItem], Error>(error: ExerciseServiceError.undefinedError)
 				.eraseToAnyPublisher()
 		}

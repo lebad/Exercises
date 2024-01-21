@@ -58,19 +58,10 @@ struct ExerciseView: View {
 						.aspectRatio(contentMode: .fit)
 						.frame(width: 50, height: 50)
 				}
+				.resizable()
+				.aspectRatio(contentMode: .fit)
 				.frame(width: 50, height: 50)
 				.clipShape(RoundedRectangle(cornerRadius: 10))
-//			AsyncImage(url: imageUrl) { image in
-//				image
-//					.resizable()
-//			} placeholder: {
-//				Image(systemName: "photo")
-//					.resizable()
-//					.aspectRatio(contentMode: .fit)
-//					.frame(width: 50, height: 50)
-//			}
-//			.frame(width: 50, height: 50)
-//			.clipShape(RoundedRectangle(cornerRadius: 10))
 			
 			Text(name)
 				.font(.headline)
