@@ -28,7 +28,9 @@ class ExerciseService: ExerciseServiceProtocol {
 				.eraseToAnyPublisher()
 		}
 		urlComponents.queryItems = [
-			URLQueryItem(name: "variations", value: "1")
+//			URLQueryItem(name: "variations", value: "5"),
+//			URLQueryItem(name: "license_author", value: "trzr23"),
+			URLQueryItem(name: "limit", value: "100")
 		]
 		guard let url = urlComponents.url else {
 			return Fail<[ExerciseItem], Error>(error: ExerciseServiceError.undefinedError)
@@ -107,11 +109,11 @@ private struct ExerciseBase: Decodable {
 		guard let exercise = exercises.first(where: { $0.language == languageId }) else {
 			return nil
 		}
-		let imageUrl = images.first.flatMap { URL(string: $0.image) }
+		let imageUrls = images.compactMap { URL(string: $0.image) }
 		return ExerciseItem(
 			id: id,
 			name: exercise.name,
-			imageUrl: imageUrl
+			imageUrls: imageUrls
 		)
 	}
 }

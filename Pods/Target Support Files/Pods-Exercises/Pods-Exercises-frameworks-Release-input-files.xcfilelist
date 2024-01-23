@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-Exercises/Pods-Exercises-frameworks.sh
+${BUILT_PRODUCTS_DIR}/CombineCocoa/CombineCocoa.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework

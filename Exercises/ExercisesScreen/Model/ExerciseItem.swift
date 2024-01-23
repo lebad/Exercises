@@ -10,5 +10,5 @@ import Foundation
 struct ExerciseItem: Identifiable {
 	let id: Int
 	let name: String
-	let imageUrl: URL?
+	let imageUrls: [URL]?
 }

@@ -21,10 +21,14 @@ struct ExercisesView: View {
 					ProgressView()
 				} else {
 					List(viewModel.exercises) { exercise in
-						ExerciseView(
-							name: exercise.name,
-							imageUrl: exercise.imageUrl
-						)
+						NavigationLink(
+							destination: ExerciseDetails(exercsise: exercise)) {
+								ExerciseView(
+									name: exercise.name,
+									imageUrl: exercise.imageUrls?.first
+								)
+							}
+						
 					}
 				}
 			}
@@ -70,6 +74,16 @@ struct ExerciseView: View {
 	}
 }
 
+struct ExerciseDetails: UIViewControllerRepresentable {
+	let exercsise: ExerciseItem
+	
+	func makeUIViewController(context: Context) -> UIViewController {
+		ExerciseDetailFactory().make(with: exercsise)
+	}
+	
+	func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}
+
 // MARK: - Preview
 
 class ExerciseServicePreviewFake: ExerciseServiceProtocol {
@@ -87,12 +101,12 @@ extension ExercisesViewModel {
 			ExerciseItem(
 				id: 31,
 				name: "Short text",
-				imageUrl: URL(string: "https://wger.de/media/exercise-images/805/ba006cae-44ca-46a9-bb71-6f5d4fa130e9.png")!
+				imageUrls: [URL(string: "https://wger.de/media/exercise-images/805/ba006cae-44ca-46a9-bb71-6f5d4fa130e9.png")!]
 			),
 			ExerciseItem(
 				id: 32,
 				name: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
-				imageUrl: URL(string: "https://wger.de/media/exercise-images/1022/f74644fa-f43e-46bd-8603-6e3a2ee8ee2d.jpg")!
+				imageUrls: [URL(string: "https://wger.de/media/exercise-images/1022/f74644fa-f43e-46bd-8603-6e3a2ee8ee2d.jpg")!]
 			)
 		]
 		return viewModel
