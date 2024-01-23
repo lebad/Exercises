@@ -25,7 +25,7 @@ class ExercisesViewModel: ObservableObject {
 		self.exerciseService = exerciseService
 	}
 	
-	func fetchExercises() {
+	func start() {
 		isLoading = true
 		exerciseService.fetchExercises()
 			.sink { [weak self] completion in

@@ -9,10 +9,10 @@ import SwiftUI
 import Combine
 import Kingfisher
 
-struct ExercisesView: View {
+struct ExercisesView: ViewControllable {
 	@StateObject var viewModel = ExercisesViewModel(exerciseService: ExerciseService())
 	
-	weak var viewController: UIViewController?
+	var holder = NavStackHolder()
 	
     var body: some View {
 		NavigationView {
@@ -21,21 +21,32 @@ struct ExercisesView: View {
 					ProgressView()
 				} else {
 					List(viewModel.exercises) { exercise in
-						NavigationLink(
-							destination: ExerciseDetails(exercsise: exercise)) {
-								ExerciseView(
-									name: exercise.name,
-									imageUrl: exercise.imageUrls?.first
-								)
-							}
-						
+						Button {
+							navigateToExercise(with: exercise)
+						} label: {
+							ExerciseView(
+								name: exercise.name,
+								imageUrl: exercise.imageUrls?.first
+							)
+						}
+
+//						NavigationLink(
+//							destination: ExerciseDetails(
+//								exercsise: exercise)
+//							.navigationTitle("fkj")
+//						) {
+//								ExerciseView(
+//									name: exercise.name,
+//									imageUrl: exercise.imageUrls?.first
+//								)
+//							}
 					}
 				}
 			}
 		}
 		.navigationTitle(viewModel.screenTitle)
-		.onAppear {
-			viewModel.fetchExercises()
+		.onViewDidLoad {
+			viewModel.start()
 		}
 		.alert(isPresented: $viewModel.shouldShowAlert) {
 			Alert(
@@ -47,6 +58,12 @@ struct ExercisesView: View {
 			)
 		}
     }
+	
+	private func navigateToExercise(with exercise: ExerciseItem) {
+		guard let viewController = holder.viewController else { return }
+		let newVc = ExerciseDetailFactory().make(with: exercise)
+		viewController.navigationController?.pushViewController(newVc, animated: true)
+	}
 }
 
 struct ExerciseView: View {

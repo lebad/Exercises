@@ -13,7 +13,7 @@ import Kingfisher
 class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 	private struct Constants {
 		static let scrolViewHeight: CGFloat = 300
-		static let pageControlBottomOffset: CGFloat = 50
+		static let pageControlBottomOffset: CGFloat = 8
 	}
 	
 	private let viewModel: ExerciseDetailViewModel
@@ -54,6 +54,8 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 	// MARK: Private
 	
 	private func setupViews() {
+		view.backgroundColor = .white
+		
 		view.addSubview(scrollView)
 		view.addSubview(pageControl)
 		
