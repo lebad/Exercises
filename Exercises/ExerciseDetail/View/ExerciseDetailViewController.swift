@@ -14,6 +14,8 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 	private struct Constants {
 		static let scrolViewHeight: CGFloat = 300
 		static let pageControlBottomOffset: CGFloat = 8
+		static let variationsLabelOffset: CGFloat = 8
+		static let horizontalOffset: CGFloat = 8
 	}
 	
 	private let viewModel: ExerciseDetailViewModel
@@ -43,6 +45,13 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		return pageControl
 	}()
 	
+	private lazy var variationsLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 20)
+		label.textColor = .black
+		return label
+	}()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupViews()
@@ -58,12 +67,13 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		
 		view.addSubview(scrollView)
 		view.addSubview(pageControl)
+		view.addSubview(variationsLabel)
 		
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset),
 			scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.horizontalOffset),
 			scrollView.heightAnchor.constraint(equalToConstant: Constants.scrolViewHeight)
 		])
 		
@@ -71,6 +81,12 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		NSLayoutConstraint.activate([
 			pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			pageControl.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -Constants.pageControlBottomOffset)
+		])
+		
+		variationsLabel.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			variationsLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.variationsLabelOffset),
+			variationsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset)
 		])
 	}
 	
@@ -91,6 +107,12 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] title in
 				self?.title = title
+			}
+			.store(in: &cancellables)
+		viewModel.$variationsTitle
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] variationsTitle in
+				self?.variationsLabel.text = variationsTitle
 			}
 			.store(in: &cancellables)
 		viewModel.$shouldShowImages

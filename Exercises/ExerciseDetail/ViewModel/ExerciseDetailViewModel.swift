@@ -9,6 +9,7 @@ import Foundation
 
 class ExerciseDetailViewModel {
 	@Published var screenTitle = ""
+	@Published var variationsTitle = "Variations:"
 	@Published var shouldShowImages = false
 	@Published var shouldShowPageControl = false
 	@Published var numberOfPages: Int = 0
