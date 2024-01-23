@@ -10,6 +10,7 @@ import Foundation
 class ExerciseDetailViewModel {
 	@Published var screenTitle = ""
 	@Published var shouldShowImages = false
+	@Published var shouldShowPageControl = false
 	@Published var numberOfPages: Int = 0
 	@Published var imageUrls: [URL] = []
 	
@@ -20,8 +21,10 @@ class ExerciseDetailViewModel {
 	}
 	
 	func start() {
+		let imageUrlsCount = exercise.imageUrls?.count ?? 0
 		screenTitle = exercise.name
-		shouldShowImages = (exercise.imageUrls?.count ?? 0) > 0
+		shouldShowImages = imageUrlsCount > 0
+		shouldShowPageControl = imageUrlsCount > 1
 		numberOfPages = exercise.imageUrls?.count ?? 0
 		imageUrls = exercise.imageUrls ?? []
 	}

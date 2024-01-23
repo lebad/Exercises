@@ -100,6 +100,12 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 				self?.pageControl.isHidden = !shouldShowImages
 			}
 			.store(in: &cancellables)
+		viewModel.$shouldShowPageControl
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] shouldShowPageControl in
+				self?.pageControl.isHidden = !shouldShowPageControl
+			}
+			.store(in: &cancellables)
 		viewModel.$numberOfPages
 			.receive(on: DispatchQueue.main)
 			.assignWeak(to: \.numberOfPages, on: pageControl)
