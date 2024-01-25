@@ -69,6 +69,7 @@ struct ExerciseRowView: View {
 						.resizable()
 						.aspectRatio(contentMode: .fit)
 						.frame(width: 50, height: 50)
+						.foregroundColor(.gray)
 				}
 				.resizable()
 				.aspectRatio(contentMode: .fit)
@@ -78,6 +79,7 @@ struct ExerciseRowView: View {
 			Text(name)
 				.font(.headline)
 				.padding(.leading, 8)
+				.foregroundColor(.black)
 		}
 	}
 }

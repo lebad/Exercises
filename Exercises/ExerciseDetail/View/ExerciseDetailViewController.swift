@@ -47,17 +47,17 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		return pageControl
 	}()
 	
-	private lazy var variationsLabel: UILabel = {
-		let label = UILabel()
-		label.font = UIFont.systemFont(ofSize: 20)
-		label.textColor = .black
-		return label
+	private lazy var variationsButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.titleLabel?.textColor = .black
+		button.titleLabel?.font = .systemFont(ofSize: 15)
+		button.tapPublisher
+			.sink { [weak self] _ in
+				self?.viewModel.showVariations()
+			}
+			.store(in: &cancellables)
+		return button
 	}()
-	
-	private lazy var variationView = UIView(frame: .zero)
-	private var hostingController: UIHostingController<ExercisesView>?
-	
-	private var customHostingView: CustomHostingView<ExercisesView>?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,8 +74,7 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		
 		view.addSubview(scrollView)
 		view.addSubview(pageControl)
-		view.addSubview(variationsLabel)
-		view.addSubview(variationView)
+		view.addSubview(variationsButton)
 		
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
@@ -91,61 +90,11 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			pageControl.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -Constants.pageControlBottomOffset)
 		])
 		
-		variationsLabel.translatesAutoresizingMaskIntoConstraints = false
+		variationsButton.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			variationsLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.verticalOffset),
-			variationsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset)
+			variationsButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.verticalOffset),
+			variationsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
-		
-		let height = UIScreen.main.bounds.height - Constants.scrolViewHeight - 24
-		variationView.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			variationView.topAnchor.constraint(equalTo: variationsLabel.bottomAnchor, constant: Constants.verticalOffset),
-			variationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset),
-			variationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.horizontalOffset),
-			variationView.heightAnchor.constraint(equalToConstant: height)
-		])
-		
-		setupVariationsView()
-	}
-	
-	private func setupVariationsView() {
-		let exercisesView = ExercisesView(viewModel: self.exercisesViewModel) { exercise in
-			print("")
-		}
-//		let hostingView = CustomHostingView(rootView: exercisesView)
-//		self.customHostingView = hostingView
-//		
-//		variationView.addSubview(hostingView)
-//		
-//		hostingView.translatesAutoresizingMaskIntoConstraints = false
-//		NSLayoutConstraint.activate([
-//			hostingView.topAnchor.constraint(equalTo: variationView.topAnchor),
-//			hostingView.leadingAnchor.constraint(equalTo: variationView.leadingAnchor),
-//			hostingView.trailingAnchor.constraint(equalTo: variationView.trailingAnchor),
-//			hostingView.bottomAnchor.constraint(equalTo: variationView.bottomAnchor)
-//		])
-		
-		let hostingController = UIHostingController(rootView: exercisesView)
-//		hostingController.sizingOptions = [.intrinsicContentSize]
-		self.hostingController = hostingController
-		addChild(hostingController)
-		hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-		variationView.addSubview(hostingController.view)
-		NSLayoutConstraint.activate([
-			hostingController.view.topAnchor.constraint(equalTo: variationView.topAnchor),
-			hostingController.view.leadingAnchor.constraint(equalTo: variationView.leadingAnchor),
-			hostingController.view.trailingAnchor.constraint(equalTo: variationView.trailingAnchor),
-			hostingController.view.bottomAnchor.constraint(equalTo: variationView.bottomAnchor)
-		])
-//		view.addSubview(hostingController.view)
-//		NSLayoutConstraint.activate([
-//			hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
-//			hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//			hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//			hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//		])
-		hostingController.didMove(toParent: self)
 	}
 	
 	private func setupScrollView() {
@@ -170,7 +119,7 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		viewModel.$variationsTitle
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] variationsTitle in
-				self?.variationsLabel.text = variationsTitle
+				self?.variationsButton.setTitle(variationsTitle, for: .normal)
 			}
 			.store(in: &cancellables)
 		viewModel.$shouldShowImages
@@ -196,17 +145,49 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 				self?.setupImageUrls(imageUrls)
 			}
 			.store(in: &cancellables)
+		viewModel.$shouldShowVariation
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] shouldShowVariation in
+				self?.variationsButton.isHidden = !shouldShowVariation
+			}
+			.store(in: &cancellables)
+		viewModel.$shouldOpenVariation
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] shouldOpenVariation in
+				if shouldOpenVariation {
+					self?.openVariations()
+				}
+			}
+			.store(in: &cancellables)
 		
 		viewModel.$isLoadingVariations
 			.assignWeak(to: \.isLoading, on: exercisesViewModel)
 			.store(in: &cancellables)
-		
 		viewModel.$variationExercises
-			.sink(receiveValue: { [weak self] exercises in
-				self?.exercisesViewModel.exercises = exercises
-			})
-//			.assignWeak(to: \.exercises, on: exercisesViewModel)
+			.assignWeak(to: \.exercises, on: exercisesViewModel)
 			.store(in: &cancellables)
+	}
+	
+	private func openVariations() {
+		let exercisesView = ExercisesView(
+			viewModel: self.exercisesViewModel
+		) { [weak self] exercise in
+			self?.openExercise(exercise)
+		}
+		let vc = exercisesView.viewController
+		let navVC = UINavigationController(rootViewController: vc)
+		navVC.isNavigationBarHidden = true
+		navVC.modalPresentationStyle = .pageSheet
+		if let sheet = navVC.sheetPresentationController {
+			sheet.detents = [.medium(), .large()]
+		}
+		present(navVC, animated: true)
+	}
+	
+	private func openExercise(_ exercise: ExerciseItem) {
+		dismiss(animated: true)
+		let newVc = ExerciseDetailFactory().make(with: exercise)
+		navigationController?.pushViewController(newVc, animated: true)
 	}
 	
 	private func setupImageUrls(_ imageUrls: [URL]) {

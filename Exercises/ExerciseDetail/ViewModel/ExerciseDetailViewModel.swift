@@ -11,13 +11,14 @@ import Combine
 
 class ExerciseDetailViewModel: ObservableObject {
 	@Published var screenTitle = ""
-	@Published var variationsTitle = "Variations:"
+	@Published var variationsTitle = "Show Variations"
 	@Published var shouldShowImages = false
 	@Published var shouldShowPageControl = false
 	@Published var numberOfPages: Int = 0
 	@Published var imageUrls: [URL] = []
 	
 	@Published var shouldShowVariation = false
+	@Published var shouldOpenVariation = false
 	@Published var isLoadingVariations = false
 	@Published var variationExercises: [ExerciseItem] = []
 	
@@ -42,7 +43,10 @@ class ExerciseDetailViewModel: ObservableObject {
 		numberOfPages = exercise.imageUrls?.count ?? 0
 		imageUrls = exercise.imageUrls ?? []
 		shouldShowVariation = exercise.variationsId != nil
-		
+	}
+	
+	func showVariations() {
+		shouldOpenVariation = true
 		fetchVariationExercises()
 	}
 	

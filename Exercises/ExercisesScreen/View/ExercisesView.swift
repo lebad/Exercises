@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ExercisesView: View {
+struct ExercisesView: ViewControllable {
+	var holder = NavStackHolder()
+	
 	class ViewModel: ObservableObject {
 		@Published var isLoading = false
 		@Published var exercises: [ExerciseItem] = []
@@ -31,7 +33,6 @@ struct ExercisesView: View {
 						)
 					}
 				}
-				Spacer()
 			}
 		}
     }
