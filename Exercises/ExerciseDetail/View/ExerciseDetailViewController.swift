@@ -213,20 +213,7 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		viewModel.$description
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] description in
-				guard let decodedHtmlAttrbutedString = description.decodedHtmlAttrbutedString else {
-					let attrString = NSAttributedString(
-						string: description,
-						attributes: [.font: UIFont.systemFont(ofSize: 18), .foregroundColor: UIColor.black]
-					)
-					self?.descriptionLabel.attributedText = attrString
-					return
-				}
-				let mutAttributedString = NSMutableAttributedString(attributedString: decodedHtmlAttrbutedString)
-				mutAttributedString.addAttributes(
-					[.font: UIFont.systemFont(ofSize: 18), .foregroundColor: UIColor.black],
-					range: NSRange(location: 0, length: mutAttributedString.string.count)
-				)
-				self?.descriptionLabel.attributedText = mutAttributedString
+				self?.setDescription(description)
 			}
 			.store(in: &cancellables)
 		
@@ -236,14 +223,16 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		viewModel.$variationExercises
 			.assignWeak(to: \.exercises, on: exercisesViewModel)
 			.store(in: &cancellables)
+		
+		exercisesViewModel.exerciseSelectSubject
+			.sink { [weak self] exercise in
+				self?.openExercise(exercise)
+			}
+			.store(in: &cancellables)
 	}
 	
 	private func openVariations() {
-		let exercisesView = ExercisesView(
-			viewModel: self.exercisesViewModel
-		) { [weak self] exercise in
-			self?.openExercise(exercise)
-		}
+		let exercisesView = ExercisesView(viewModel: self.exercisesViewModel)
 		let vc = exercisesView.viewController
 		let navVC = UINavigationController(rootViewController: vc)
 		navVC.isNavigationBarHidden = true
@@ -252,6 +241,23 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			sheet.detents = [.medium(), .large()]
 		}
 		present(navVC, animated: true)
+	}
+	
+	private func setDescription(_ description: String) {
+		guard let decodedHtmlAttrbutedString = description.decodedHtmlAttrbutedString else {
+			let attrString = NSAttributedString(
+				string: description,
+				attributes: [.font: UIFont.systemFont(ofSize: 18), .foregroundColor: UIColor.black]
+			)
+			descriptionLabel.attributedText = attrString
+			return
+		}
+		let mutAttributedString = NSMutableAttributedString(attributedString: decodedHtmlAttrbutedString)
+		mutAttributedString.addAttributes(
+			[.font: UIFont.systemFont(ofSize: 18), .foregroundColor: UIColor.black],
+			range: NSRange(location: 0, length: mutAttributedString.string.count)
+		)
+		descriptionLabel.attributedText = mutAttributedString
 	}
 	
 	private func openExercise(_ exercise: ExerciseItem) {

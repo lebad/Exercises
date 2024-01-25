@@ -126,6 +126,14 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		550DC7FF2B63156A00E8C692 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		551549872B5C3B2C005AF503 = {
 			isa = PBXGroup;
 			children = (
@@ -163,7 +171,7 @@
 		551549A92B5C4100005AF503 /* ExercisesScreen */ = {
 			isa = PBXGroup;
 			children = (
-				551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */,
+				550DC7FF2B63156A00E8C692 /* Factory */,
 				551549B22B5C5AC0005AF503 /* View */,
 				551549AF2B5C5A9B005AF503 /* ViewModel */,
 				551549AC2B5C5A1F005AF503 /* Model */,
@@ -208,7 +216,7 @@
 		551549BA2B5DB98F005AF503 /* ExerciseDetail */ = {
 			isa = PBXGroup;
 			children = (
-				551549C42B6000C7005AF503 /* ExerciseDetailFactory */,
+				551549C42B6000C7005AF503 /* Factory */,
 				551549BB2B5DB9A5005AF503 /* View */,
 				551549BC2B5DB9AC005AF503 /* ViewModel */,
 			);
@@ -231,12 +239,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		551549C42B6000C7005AF503 /* ExerciseDetailFactory */ = {
+		551549C42B6000C7005AF503 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
 				551549C52B6000E2005AF503 /* ExerciseDetailFactory.swift */,
 			);
-			path = ExerciseDetailFactory;
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		A666AE0EBE1D2BBC1C4D42A8 /* Pods */ = {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ExercisesView: ViewControllable {
 	var holder = NavStackHolder()
@@ -13,10 +14,10 @@ struct ExercisesView: ViewControllable {
 	class ViewModel: ObservableObject {
 		@Published var isLoading = false
 		@Published var exercises: [ExerciseItem] = []
+		let exerciseSelectSubject = PassthroughSubject<ExerciseItem, Never>()
 	}
 	
 	@StateObject var viewModel: ViewModel
-	let onExerciseSelect: (ExerciseItem) -> Void
 	
     var body: some View {
 		HStack {
@@ -25,7 +26,7 @@ struct ExercisesView: ViewControllable {
 			} else {
 				List(viewModel.exercises) { exercise in
 					Button {
-						onExerciseSelect(exercise)
+						viewModel.exerciseSelectSubject.send(exercise)
 					} label: {
 						ExerciseRowView(
 							name: exercise.name,
@@ -40,8 +41,5 @@ struct ExercisesView: ViewControllable {
 }
 
 #Preview {
-	ExercisesView(
-		viewModel: ExercisesView.ViewModel(),
-		onExerciseSelect: { _ in }
-	)
+	ExercisesView(viewModel: ExercisesView.ViewModel())
 }

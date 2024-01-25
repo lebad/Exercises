@@ -18,12 +18,10 @@ struct ExercisesScreenView: ViewControllable {
 	
     var body: some View {
 		NavigationView {
-			ExercisesView(viewModel: exercisesViewModel) { exercise in
-				navigateToExercise(with: exercise)
-			}
-			.onAppear {
-				bindViewModels()
-			}
+			ExercisesView(viewModel: exercisesViewModel)
+				.onViewDidLoad {
+					bindViewModels()
+				}
 		}
 		.navigationTitle(viewModel.screenTitle)
 		.onViewDidLoad {
@@ -42,9 +40,13 @@ struct ExercisesScreenView: ViewControllable {
 		viewModel.$isLoading
 			.assign(to: \.isLoading, on: exercisesViewModel)
 			.store(in: &cancellables)
-		
 		viewModel.$exercises
 			.assign(to: \.exercises, on: exercisesViewModel)
+			.store(in: &cancellables)
+		exercisesViewModel.exerciseSelectSubject
+			.sink { exercise in
+				self.navigateToExercise(with: exercise)
+			}
 			.store(in: &cancellables)
 	}
 	
@@ -93,16 +95,6 @@ struct ExerciseRowView: View {
 			}
 		}
 	}
-}
-
-struct ExerciseDetails: UIViewControllerRepresentable {
-	let exercsise: ExerciseItem
-	
-	func makeUIViewController(context: Context) -> UIViewController {
-		ExerciseDetailFactory().make(with: exercsise)
-	}
-	
-	func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }
 
 // MARK: - Preview
