@@ -12,6 +12,7 @@ import Combine
 class ExerciseDetailViewModel: ObservableObject {
 	@Published var screenTitle = ""
 	@Published var variationsTitle = "Show Variations"
+	@Published var noContentTitle = "Sorry, no content is here"
 	@Published var shouldShowImages = false
 	@Published var shouldShowPageControl = false
 	@Published var numberOfPages: Int = 0
@@ -21,6 +22,8 @@ class ExerciseDetailViewModel: ObservableObject {
 	@Published var shouldOpenVariation = false
 	@Published var isLoadingVariations = false
 	@Published var variationExercises: [ExerciseItem] = []
+	
+	@Published var showNoContent = false
 	
 	private let exercise: ExerciseItem
 	private let exerciseService: ExerciseServiceProtocol
@@ -38,11 +41,13 @@ class ExerciseDetailViewModel: ObservableObject {
 	func start() {
 		let imageUrlsCount = exercise.imageUrls?.count ?? 0
 		screenTitle = exercise.name
+		numberOfPages = imageUrlsCount
+		imageUrls = exercise.imageUrls ?? []
+		
 		shouldShowImages = imageUrlsCount > 0
 		shouldShowPageControl = imageUrlsCount > 1
-		numberOfPages = exercise.imageUrls?.count ?? 0
-		imageUrls = exercise.imageUrls ?? []
 		shouldShowVariation = exercise.variationsId != nil
+		showNoContent = imageUrlsCount == 0 && exercise.variationsId == nil
 	}
 	
 	func showVariations() {
@@ -56,7 +61,10 @@ class ExerciseDetailViewModel: ObservableObject {
 			.sink { [weak self] completion in
 				self?.isLoadingVariations = false
 			} receiveValue: { [weak self] exercises in
-				self?.variationExercises = exercises
+				guard let self else {
+					return
+				}
+				self.variationExercises = exercises.filter { $0.id != self.exercise.id }
 			}
 			.store(in: &cancellables)
 	}

@@ -59,6 +59,13 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		return button
 	}()
 	
+	private lazy var noContentLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 20)
+		label.textColor = .black
+		return label
+	}()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupViews()
@@ -75,6 +82,7 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		view.addSubview(scrollView)
 		view.addSubview(pageControl)
 		view.addSubview(variationsButton)
+		view.addSubview(noContentLabel)
 		
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
@@ -94,6 +102,12 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		NSLayoutConstraint.activate([
 			variationsButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.verticalOffset),
 			variationsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+		])
+		
+		noContentLabel.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			noContentLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			noContentLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
 		])
 	}
 	
@@ -157,6 +171,18 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 				if shouldOpenVariation {
 					self?.openVariations()
 				}
+			}
+			.store(in: &cancellables)
+		viewModel.$showNoContent
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] showNoContent in
+				self?.noContentLabel.isHidden = !showNoContent
+			}
+			.store(in: &cancellables)
+		viewModel.$noContentTitle
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] noContentTitle in
+				self?.noContentLabel.text = noContentTitle
 			}
 			.store(in: &cancellables)
 		
