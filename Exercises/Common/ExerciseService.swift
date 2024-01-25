@@ -87,6 +87,7 @@ private struct ExerciseBase: Decodable {
 	struct Exercise: Decodable {
 		let id: Int
 		let name: String
+		let description: String
 		let language: Int
 	}
 	struct ExerciseImage: Decodable {
@@ -121,8 +122,9 @@ private struct ExerciseBase: Decodable {
 		let imageUrls = images.compactMap { URL(string: $0.image) }
 		return ExerciseItem(
 			id: id,
-			name: exercise.name,
-			imageUrls: imageUrls, 
+			name: exercise.name, 
+			description: exercise.description,
+			imageUrls: imageUrls,
 			variationsId: variations
 		)
 	}

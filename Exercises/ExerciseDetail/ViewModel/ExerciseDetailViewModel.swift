@@ -13,6 +13,7 @@ class ExerciseDetailViewModel: ObservableObject {
 	@Published var screenTitle = ""
 	@Published var variationsTitle = "Show Variations"
 	@Published var noContentTitle = "Sorry, no content is here"
+	@Published var description = ""
 	@Published var shouldShowImages = false
 	@Published var shouldShowPageControl = false
 	@Published var numberOfPages: Int = 0
@@ -22,7 +23,6 @@ class ExerciseDetailViewModel: ObservableObject {
 	@Published var shouldOpenVariation = false
 	@Published var isLoadingVariations = false
 	@Published var variationExercises: [ExerciseItem] = []
-	
 	@Published var showNoContent = false
 	
 	private let exercise: ExerciseItem
@@ -43,11 +43,12 @@ class ExerciseDetailViewModel: ObservableObject {
 		screenTitle = exercise.name
 		numberOfPages = imageUrlsCount
 		imageUrls = exercise.imageUrls ?? []
+		description = exercise.description
 		
 		shouldShowImages = imageUrlsCount > 0
 		shouldShowPageControl = imageUrlsCount > 1
 		shouldShowVariation = exercise.variationsId != nil
-		showNoContent = imageUrlsCount == 0 && exercise.variationsId == nil
+		showNoContent = exercise.description.isEmpty && imageUrlsCount == 0 && exercise.variationsId == nil
 	}
 	
 	func showVariations() {

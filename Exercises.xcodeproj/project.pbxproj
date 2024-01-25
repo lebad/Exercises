@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28A35D13236CA2DBDDF15A8C /* Pods_Exercises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE88FE40843D19956FD93C /* Pods_Exercises.framework */; };
+		550DC7E42B62ED3300E8C692 /* String+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DC7E32B62ED3300E8C692 /* String+UI.swift */; };
 		551549942B5C3B2C005AF503 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549932B5C3B2C005AF503 /* AppDelegate.swift */; };
 		551549962B5C3B2C005AF503 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549952B5C3B2C005AF503 /* SceneDelegate.swift */; };
 		5515499D2B5C3B2E005AF503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5515499C2B5C3B2E005AF503 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		29CB8C63B961BA6B5CD9A781 /* Pods-Exercises.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exercises.release.xcconfig"; path = "Target Support Files/Pods-Exercises/Pods-Exercises.release.xcconfig"; sourceTree = "<group>"; };
+		550DC7E32B62ED3300E8C692 /* String+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UI.swift"; sourceTree = "<group>"; };
 		551549902B5C3B2C005AF503 /* Exercises.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercises.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		551549932B5C3B2C005AF503 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		551549952B5C3B2C005AF503 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				551549B72B5C8C0D005AF503 /* Data+Parsing.swift */,
 				551549C22B5FC5EB005AF503 /* Publisher+Assign.swift */,
+				550DC7E32B62ED3300E8C692 /* String+UI.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				551549DC2B626416005AF503 /* CustomHostingView.swift in Sources */,
 				551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */,
 				551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */,
+				550DC7E42B62ED3300E8C692 /* String+UI.swift in Sources */,
 				551549CE2B61084C005AF503 /* ExercisesView.swift in Sources */,
 				551549AB2B5C425F005AF503 /* ExercisesScreenView.swift in Sources */,
 				551549C32B5FC5EB005AF503 /* Publisher+Assign.swift in Sources */,

@@ -128,13 +128,15 @@ extension ExercisesViewModel {
 		viewModel.exercises = [
 			ExerciseItem(
 				id: 31,
-				name: "Short text",
-				imageUrls: [URL(string: "https://wger.de/media/exercise-images/805/ba006cae-44ca-46a9-bb71-6f5d4fa130e9.png")!], 
+				name: "Short text", 
+				description: "Description",
+				imageUrls: [URL(string: "https://wger.de/media/exercise-images/805/ba006cae-44ca-46a9-bb71-6f5d4fa130e9.png")!],
 				variationsId: nil
 			),
 			ExerciseItem(
 				id: 32,
-				name: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
+				name: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout", 
+				description: "Description",
 				imageUrls: [URL(string: "https://wger.de/media/exercise-images/1022/f74644fa-f43e-46bd-8603-6e3a2ee8ee2d.jpg")!],
 				variationsId: nil
 			)

@@ -10,6 +10,7 @@ import Foundation
 struct ExerciseItem: Identifiable {
 	let id: Int
 	let name: String
+	let description: String
 	let imageUrls: [URL]?
 	let variationsId: Int?
 }

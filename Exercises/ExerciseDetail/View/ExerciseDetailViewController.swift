@@ -39,6 +39,8 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		return scrollView
 	}()
 	
+	private var scrollViewHeightConstraint: NSLayoutConstraint?
+	
 	private lazy var pageControl: UIPageControl = {
 		let pageControl = UIPageControl()
 		pageControl.currentPage = 0
@@ -57,6 +59,12 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			}
 			.store(in: &cancellables)
 		return button
+	}()
+	
+	private lazy var descriptionLabel: UILabel = {
+		let label = UILabel()
+		label.numberOfLines = 0
+		return label
 	}()
 	
 	private lazy var noContentLabel: UILabel = {
@@ -81,15 +89,19 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		
 		view.addSubview(scrollView)
 		view.addSubview(pageControl)
+		view.addSubview(descriptionLabel)
 		view.addSubview(variationsButton)
 		view.addSubview(noContentLabel)
 		
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		
+		let scrollViewHeightConstraint = scrollView.heightAnchor.constraint(equalToConstant: Constants.scrolViewHeight)
+		self.scrollViewHeightConstraint = scrollViewHeightConstraint
 		NSLayoutConstraint.activate([
 			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset),
 			scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.horizontalOffset),
-			scrollView.heightAnchor.constraint(equalToConstant: Constants.scrolViewHeight)
+			scrollViewHeightConstraint
 		])
 		
 		pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -98,9 +110,16 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			pageControl.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -Constants.pageControlBottomOffset)
 		])
 		
+		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			descriptionLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.verticalOffset),
+			descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset),
+			descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.horizontalOffset)
+		])
+		
 		variationsButton.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			variationsButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.verticalOffset),
+			variationsButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.verticalOffset),
 			variationsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
 		
@@ -140,7 +159,13 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] shouldShowImages in
 				self?.scrollView.isHidden = !shouldShowImages
-				self?.pageControl.isHidden = !shouldShowImages
+				if !shouldShowImages {
+					self?.scrollViewHeightConstraint?.constant = 0
+					self?.view.layoutIfNeeded()
+				} else {
+					self?.scrollViewHeightConstraint?.constant = Constants.scrolViewHeight
+					self?.view.layoutIfNeeded()
+				}
 			}
 			.store(in: &cancellables)
 		viewModel.$shouldShowPageControl
@@ -183,6 +208,25 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] noContentTitle in
 				self?.noContentLabel.text = noContentTitle
+			}
+			.store(in: &cancellables)
+		viewModel.$description
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] description in
+				guard let decodedHtmlAttrbutedString = description.decodedHtmlAttrbutedString else {
+					let attrString = NSAttributedString(
+						string: description,
+						attributes: [.font: UIFont.systemFont(ofSize: 18), .foregroundColor: UIColor.black]
+					)
+					self?.descriptionLabel.attributedText = attrString
+					return
+				}
+				let mutAttributedString = NSMutableAttributedString(attributedString: decodedHtmlAttrbutedString)
+				mutAttributedString.addAttributes(
+					[.font: UIFont.systemFont(ofSize: 18), .foregroundColor: UIColor.black],
+					range: NSRange(location: 0, length: mutAttributedString.string.count)
+				)
+				self?.descriptionLabel.attributedText = mutAttributedString
 			}
 			.store(in: &cancellables)
 		
