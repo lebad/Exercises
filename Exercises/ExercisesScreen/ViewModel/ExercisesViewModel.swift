@@ -14,7 +14,7 @@ class ExercisesViewModel: ObservableObject {
 	@Published var isLoading = false
 	
 	@Published var shouldShowAlert = false
-	@Published var errorTitle = "Error"
+	@Published var errorTitle = ""
 	@Published var errorMessage = ""
 	@Published var errorOkButtonTitle = "OK"
 	
@@ -33,6 +33,8 @@ class ExercisesViewModel: ObservableObject {
 				if case .failure(let error) = completion, 
 					let serviceError = error as? ExerciseServiceError {
 					self?.shouldShowAlert = true
+					self?.errorTitle = "Error"
+					self?.errorOkButtonTitle = "OK"
 					switch serviceError {
 					case .undefinedError:
 						self?.errorMessage = "Something went wrong. Please try again later"
@@ -44,9 +46,5 @@ class ExercisesViewModel: ObservableObject {
 				self?.exercises = exercises
 			}
 			.store(in: &cancellables)
-	}
-	
-	func dismissAlertButtonAction() {
-		shouldShowAlert = false
 	}
 }

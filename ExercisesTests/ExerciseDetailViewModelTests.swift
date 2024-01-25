@@ -16,6 +16,11 @@ final class ExerciseDetailViewModelTests: XCTestCase {
 		serviceMock = ExerciseServiceMock()
 	}
 	
+	override func tearDown() {
+		super.tearDown()
+		serviceMock = nil
+	}
+	
 	// MARK: - start
 	
 	func test_start_whenExerciseFull_shouldInitializeCorrectly() {

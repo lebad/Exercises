@@ -33,9 +33,7 @@ struct ExercisesScreenView: ViewControllable {
 			Alert(
 				title: Text(viewModel.errorTitle),
 				message: Text(viewModel.errorMessage),
-				dismissButton: .default(Text(viewModel.errorOkButtonTitle), action: {
-					viewModel.dismissAlertButtonAction()
-				})
+				dismissButton: .default(Text(viewModel.errorOkButtonTitle))
 			)
 		}
     }
