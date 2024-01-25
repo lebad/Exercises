@@ -9,7 +9,7 @@ import UIKit
 
 class ExerciseDetailFactory {
 	func make(with exercise: ExerciseItem) -> UIViewController {
-		let viewModel = ExerciseDetailViewModel(exercise: exercise)
+		let viewModel = ExerciseDetailViewModel(exercise: exercise, exerciseService: ExerciseService())
 		return ExerciseDetailViewController(viewModel: viewModel)
 	}
 }

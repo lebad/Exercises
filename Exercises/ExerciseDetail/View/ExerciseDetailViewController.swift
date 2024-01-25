@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 import CombineCocoa
 import Kingfisher
@@ -14,11 +15,12 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 	private struct Constants {
 		static let scrolViewHeight: CGFloat = 300
 		static let pageControlBottomOffset: CGFloat = 8
-		static let variationsLabelOffset: CGFloat = 8
+		static let verticalOffset: CGFloat = 8
 		static let horizontalOffset: CGFloat = 8
 	}
 	
 	private let viewModel: ExerciseDetailViewModel
+	private let exercisesViewModel = ExercisesView.ViewModel()
 	private var cancellables = Set<AnyCancellable>()
 	
 	init(viewModel: ExerciseDetailViewModel) {
@@ -52,6 +54,11 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		return label
 	}()
 	
+	private lazy var variationView = UIView(frame: .zero)
+	private var hostingController: UIHostingController<ExercisesView>?
+	
+	private var customHostingView: CustomHostingView<ExercisesView>?
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupViews()
@@ -68,6 +75,7 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		view.addSubview(scrollView)
 		view.addSubview(pageControl)
 		view.addSubview(variationsLabel)
+		view.addSubview(variationView)
 		
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
@@ -85,9 +93,59 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 		
 		variationsLabel.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			variationsLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.variationsLabelOffset),
+			variationsLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Constants.verticalOffset),
 			variationsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset)
 		])
+		
+		let height = UIScreen.main.bounds.height - Constants.scrolViewHeight - 24
+		variationView.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			variationView.topAnchor.constraint(equalTo: variationsLabel.bottomAnchor, constant: Constants.verticalOffset),
+			variationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalOffset),
+			variationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.horizontalOffset),
+			variationView.heightAnchor.constraint(equalToConstant: height)
+		])
+		
+		setupVariationsView()
+	}
+	
+	private func setupVariationsView() {
+		let exercisesView = ExercisesView(viewModel: self.exercisesViewModel) { exercise in
+			print("")
+		}
+//		let hostingView = CustomHostingView(rootView: exercisesView)
+//		self.customHostingView = hostingView
+//		
+//		variationView.addSubview(hostingView)
+//		
+//		hostingView.translatesAutoresizingMaskIntoConstraints = false
+//		NSLayoutConstraint.activate([
+//			hostingView.topAnchor.constraint(equalTo: variationView.topAnchor),
+//			hostingView.leadingAnchor.constraint(equalTo: variationView.leadingAnchor),
+//			hostingView.trailingAnchor.constraint(equalTo: variationView.trailingAnchor),
+//			hostingView.bottomAnchor.constraint(equalTo: variationView.bottomAnchor)
+//		])
+		
+		let hostingController = UIHostingController(rootView: exercisesView)
+//		hostingController.sizingOptions = [.intrinsicContentSize]
+		self.hostingController = hostingController
+		addChild(hostingController)
+		hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+		variationView.addSubview(hostingController.view)
+		NSLayoutConstraint.activate([
+			hostingController.view.topAnchor.constraint(equalTo: variationView.topAnchor),
+			hostingController.view.leadingAnchor.constraint(equalTo: variationView.leadingAnchor),
+			hostingController.view.trailingAnchor.constraint(equalTo: variationView.trailingAnchor),
+			hostingController.view.bottomAnchor.constraint(equalTo: variationView.bottomAnchor)
+		])
+//		view.addSubview(hostingController.view)
+//		NSLayoutConstraint.activate([
+//			hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+//			hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//			hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//			hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//		])
+		hostingController.didMove(toParent: self)
 	}
 	
 	private func setupScrollView() {
@@ -137,6 +195,17 @@ class ExerciseDetailViewController: UIViewController, UIScrollViewDelegate {
 			.sink { [weak self] imageUrls in
 				self?.setupImageUrls(imageUrls)
 			}
+			.store(in: &cancellables)
+		
+		viewModel.$isLoadingVariations
+			.assignWeak(to: \.isLoading, on: exercisesViewModel)
+			.store(in: &cancellables)
+		
+		viewModel.$variationExercises
+			.sink(receiveValue: { [weak self] exercises in
+				self?.exercisesViewModel.exercises = exercises
+			})
+//			.assignWeak(to: \.exercises, on: exercisesViewModel)
 			.store(in: &cancellables)
 	}
 	

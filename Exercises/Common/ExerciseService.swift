@@ -15,6 +15,7 @@ enum ExerciseServiceError: Error {
 
 protocol ExerciseServiceProtocol {
 	func fetchExercises() -> AnyPublisher<[ExerciseItem], Error>
+	func fetchExercises(with variationsId: Int?) -> AnyPublisher<[ExerciseItem], Error>
 }
 
 class ExerciseService: ExerciseServiceProtocol {
@@ -23,15 +24,20 @@ class ExerciseService: ExerciseServiceProtocol {
 	private static let languageId = 2
 	
 	func fetchExercises() -> AnyPublisher<[ExerciseItem], Error> {
+		fetchExercises(with: nil)
+	}
+	
+	func fetchExercises(with variationsId: Int?) -> AnyPublisher<[ExerciseItem], Error> {
 		guard var urlComponents = URLComponents(string: "https://wger.de/api/v2/exercisebaseinfo/") else {
 			return Fail<[ExerciseItem], Error>(error: ExerciseServiceError.undefinedError)
 				.eraseToAnyPublisher()
 		}
 		urlComponents.queryItems = [
-//			URLQueryItem(name: "variations", value: "5"),
-//			URLQueryItem(name: "license_author", value: "trzr23"),
 			URLQueryItem(name: "limit", value: "100")
 		]
+		if let variationsId {
+			urlComponents.queryItems?.append(URLQueryItem(name: "variations", value: "\(variationsId)"))
+		}
 		guard let url = urlComponents.url else {
 			return Fail<[ExerciseItem], Error>(error: ExerciseServiceError.undefinedError)
 				.eraseToAnyPublisher()
@@ -91,11 +97,13 @@ private struct ExerciseBase: Decodable {
 	let id: Int
 	let exercises: [Exercise]
 	let images: [ExerciseImage]
+	let variations: Int?
 	
 	enum CodingKeys: CodingKey {
 		case id
 		case exercises
 		case images
+		case variations
 	}
 	
 	init(from decoder: Decoder) throws {
@@ -103,6 +111,7 @@ private struct ExerciseBase: Decodable {
 		id = try container.decode(Int.self, forKey: CodingKeys.id)
 		exercises = try container.decode([Exercise].self, forKey: CodingKeys.exercises)
 		images = (try? container.decode([ExerciseImage].self, forKey: CodingKeys.images)) ?? []
+		variations = try? container.decode(Int.self, forKey: CodingKeys.variations)
 	}
 	
 	func mapToExerciseItem(for languageId: Int) -> ExerciseItem? {
@@ -113,7 +122,8 @@ private struct ExerciseBase: Decodable {
 		return ExerciseItem(
 			id: id,
 			name: exercise.name,
-			imageUrls: imageUrls
+			imageUrls: imageUrls, 
+			variationsId: variations
 		)
 	}
 }

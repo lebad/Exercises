@@ -12,7 +12,7 @@
 		551549962B5C3B2C005AF503 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549952B5C3B2C005AF503 /* SceneDelegate.swift */; };
 		5515499D2B5C3B2E005AF503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5515499C2B5C3B2E005AF503 /* Assets.xcassets */; };
 		551549A02B5C3B2E005AF503 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5515499E2B5C3B2E005AF503 /* LaunchScreen.storyboard */; };
-		551549AB2B5C425F005AF503 /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549AA2B5C425F005AF503 /* ExercisesView.swift */; };
+		551549AB2B5C425F005AF503 /* ExercisesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549AA2B5C425F005AF503 /* ExercisesScreenView.swift */; };
 		551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549AD2B5C5A32005AF503 /* ExerciseItem.swift */; };
 		551549B12B5C5AB2005AF503 /* ExercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B02B5C5AB2005AF503 /* ExercisesViewModel.swift */; };
 		551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549B32B5C65CE005AF503 /* ExerciseService.swift */; };
@@ -23,6 +23,9 @@
 		551549C62B6000E2005AF503 /* ExerciseDetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549C52B6000E2005AF503 /* ExerciseDetailFactory.swift */; };
 		551549C82B601426005AF503 /* NavStackHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549C72B601426005AF503 /* NavStackHolder.swift */; };
 		551549CA2B60168A005AF503 /* ViewDidLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */; };
+		551549CE2B61084C005AF503 /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549CD2B61084C005AF503 /* ExercisesView.swift */; };
+		551549D02B61392A005AF503 /* ExercisesScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */; };
+		551549DC2B626416005AF503 /* CustomHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549DB2B626416005AF503 /* CustomHostingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +36,7 @@
 		5515499C2B5C3B2E005AF503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5515499F2B5C3B2E005AF503 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		551549A12B5C3B2E005AF503 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		551549AA2B5C425F005AF503 /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
+		551549AA2B5C425F005AF503 /* ExercisesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesScreenView.swift; sourceTree = "<group>"; };
 		551549AD2B5C5A32005AF503 /* ExerciseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		551549B02B5C5AB2005AF503 /* ExercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModel.swift; sourceTree = "<group>"; };
 		551549B32B5C65CE005AF503 /* ExerciseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseService.swift; sourceTree = "<group>"; };
@@ -44,6 +47,9 @@
 		551549C52B6000E2005AF503 /* ExerciseDetailFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailFactory.swift; sourceTree = "<group>"; };
 		551549C72B601426005AF503 /* NavStackHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavStackHolder.swift; sourceTree = "<group>"; };
 		551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoadModifier.swift; sourceTree = "<group>"; };
+		551549CD2B61084C005AF503 /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
+		551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesScreenFactory.swift; sourceTree = "<group>"; };
+		551549DB2B626416005AF503 /* CustomHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHostingView.swift; sourceTree = "<group>"; };
 		9E8162C47D350EED5C6644DE /* Pods-Exercises.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exercises.debug.xcconfig"; path = "Target Support Files/Pods-Exercises/Pods-Exercises.debug.xcconfig"; sourceTree = "<group>"; };
 		9FCE88FE40843D19956FD93C /* Pods_Exercises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Exercises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -96,6 +102,7 @@
 		551549A92B5C4100005AF503 /* ExercisesScreen */ = {
 			isa = PBXGroup;
 			children = (
+				551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */,
 				551549B22B5C5AC0005AF503 /* View */,
 				551549AF2B5C5A9B005AF503 /* ViewModel */,
 				551549AC2B5C5A1F005AF503 /* Model */,
@@ -107,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				551549AD2B5C5A32005AF503 /* ExerciseItem.swift */,
-				551549B32B5C65CE005AF503 /* ExerciseService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,7 +129,8 @@
 		551549B22B5C5AC0005AF503 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				551549AA2B5C425F005AF503 /* ExercisesView.swift */,
+				551549AA2B5C425F005AF503 /* ExercisesScreenView.swift */,
+				551549CD2B61084C005AF503 /* ExercisesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,6 +138,8 @@
 		551549B52B5C8BDB005AF503 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				551549DB2B626416005AF503 /* CustomHostingView.swift */,
+				551549B32B5C65CE005AF503 /* ExerciseService.swift */,
 				551549B62B5C8BED005AF503 /* Extensions */,
 				551549C72B601426005AF503 /* NavStackHolder.swift */,
 				551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */,
@@ -320,14 +329,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551549DC2B626416005AF503 /* CustomHostingView.swift in Sources */,
 				551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */,
 				551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */,
-				551549AB2B5C425F005AF503 /* ExercisesView.swift in Sources */,
+				551549CE2B61084C005AF503 /* ExercisesView.swift in Sources */,
+				551549AB2B5C425F005AF503 /* ExercisesScreenView.swift in Sources */,
 				551549C32B5FC5EB005AF503 /* Publisher+Assign.swift in Sources */,
 				551549BF2B5DC330005AF503 /* ExerciseDetailViewController.swift in Sources */,
 				551549B82B5C8C0D005AF503 /* Data+Parsing.swift in Sources */,
 				551549C62B6000E2005AF503 /* ExerciseDetailFactory.swift in Sources */,
 				551549CA2B60168A005AF503 /* ViewDidLoadModifier.swift in Sources */,
+				551549D02B61392A005AF503 /* ExercisesScreenFactory.swift in Sources */,
 				551549B12B5C5AB2005AF503 /* ExercisesViewModel.swift in Sources */,
 				551549C82B601426005AF503 /* NavStackHolder.swift in Sources */,
 				551549C12B5DC5A2005AF503 /* ExerciseDetailViewModel.swift in Sources */,

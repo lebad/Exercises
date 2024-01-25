@@ -11,4 +11,5 @@ struct ExerciseItem: Identifiable {
 	let id: Int
 	let name: String
 	let imageUrls: [URL]?
+	let variationsId: Int?
 }

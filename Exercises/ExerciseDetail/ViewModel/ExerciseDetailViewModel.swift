@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
-class ExerciseDetailViewModel {
+class ExerciseDetailViewModel: ObservableObject {
 	@Published var screenTitle = ""
 	@Published var variationsTitle = "Variations:"
 	@Published var shouldShowImages = false
@@ -15,10 +17,21 @@ class ExerciseDetailViewModel {
 	@Published var numberOfPages: Int = 0
 	@Published var imageUrls: [URL] = []
 	
-	private let exercise: ExerciseItem
+	@Published var shouldShowVariation = false
+	@Published var isLoadingVariations = false
+	@Published var variationExercises: [ExerciseItem] = []
 	
-	init(exercise: ExerciseItem) {
+	private let exercise: ExerciseItem
+	private let exerciseService: ExerciseServiceProtocol
+	
+	private var cancellables = Set<AnyCancellable>()
+	
+	init(
+		exercise: ExerciseItem,
+		exerciseService: ExerciseServiceProtocol
+	) {
 		self.exercise = exercise
+		self.exerciseService = exerciseService
 	}
 	
 	func start() {
@@ -28,5 +41,19 @@ class ExerciseDetailViewModel {
 		shouldShowPageControl = imageUrlsCount > 1
 		numberOfPages = exercise.imageUrls?.count ?? 0
 		imageUrls = exercise.imageUrls ?? []
+		shouldShowVariation = exercise.variationsId != nil
+		
+		fetchVariationExercises()
+	}
+	
+	private func fetchVariationExercises() {
+		isLoadingVariations = true
+		exerciseService.fetchExercises(with: exercise.variationsId)
+			.sink { [weak self] completion in
+				self?.isLoadingVariations = false
+			} receiveValue: { [weak self] exercises in
+				self?.variationExercises = exercises
+			}
+			.store(in: &cancellables)
 	}
 }

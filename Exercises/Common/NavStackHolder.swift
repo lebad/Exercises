@@ -22,7 +22,7 @@ public protocol ViewControllable: View {
 
 public extension ViewControllable {
   var viewController: UIViewController {
-	let viewController = HostingController(rootView: self)
+	let viewController = NavStackHostingController(rootView: self)
 	self.holder.viewController = viewController
 	return viewController
   }
@@ -31,7 +31,7 @@ public extension ViewControllable {
   func viewOnAppear(viewController: UIViewController) {}
 }
 
-public class HostingController<ContentView>: UIHostingController<ContentView> where ContentView: ViewControllable {
+public class NavStackHostingController<ContentView>: UIHostingController<ContentView> where ContentView: ViewControllable {
   public override func loadView() {
 	super.loadView()
 	self.rootView.loadView()
