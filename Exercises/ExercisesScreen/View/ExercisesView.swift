@@ -29,7 +29,8 @@ struct ExercisesView: ViewControllable {
 					} label: {
 						ExerciseRowView(
 							name: exercise.name,
-							imageUrl: exercise.imageUrls?.first
+							imageUrl: exercise.imageUrls?.first,
+							isVariations: exercise.variationsId != nil
 						)
 					}
 				}

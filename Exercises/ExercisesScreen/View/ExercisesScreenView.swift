@@ -60,6 +60,7 @@ struct ExercisesScreenView: ViewControllable {
 struct ExerciseRowView: View {
 	let name: String
 	let imageUrl: URL?
+	let isVariations: Bool
 	
 	var body: some View {
 		HStack {
@@ -76,10 +77,22 @@ struct ExerciseRowView: View {
 				.frame(width: 50, height: 50)
 				.clipShape(RoundedRectangle(cornerRadius: 10))
 			
-			Text(name)
-				.font(.headline)
-				.padding(.leading, 8)
-				.foregroundColor(.black)
+			VStack(alignment: .leading, spacing: 5) {
+				Text(name)
+					.font(.headline)
+					.padding(.leading, 8)
+					.foregroundColor(.black)
+				if isVariations {
+					HStack {
+						Text("Variations")
+							.padding(.leading, 8)
+							.foregroundColor(.black)
+						Image(systemName: "circle.fill")
+							.foregroundColor(.green)
+					}
+					.font(.system(size: 10))
+				}
+			}
 		}
 	}
 }
