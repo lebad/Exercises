@@ -13,7 +13,6 @@
 		550DC7F82B62F8AA00E8C692 /* ExerciseServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DC7F72B62F8AA00E8C692 /* ExerciseServiceMock.swift */; };
 		550DC7FC2B6309A800E8C692 /* ExercisesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DC7FB2B6309A800E8C692 /* ExercisesViewModelTests.swift */; };
 		551549942B5C3B2C005AF503 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549932B5C3B2C005AF503 /* AppDelegate.swift */; };
-		551549962B5C3B2C005AF503 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549952B5C3B2C005AF503 /* SceneDelegate.swift */; };
 		5515499D2B5C3B2E005AF503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5515499C2B5C3B2E005AF503 /* Assets.xcassets */; };
 		551549A02B5C3B2E005AF503 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5515499E2B5C3B2E005AF503 /* LaunchScreen.storyboard */; };
 		551549AB2B5C425F005AF503 /* ExercisesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549AA2B5C425F005AF503 /* ExercisesScreenView.swift */; };
@@ -50,7 +49,6 @@
 		550DC7FB2B6309A800E8C692 /* ExercisesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModelTests.swift; sourceTree = "<group>"; };
 		551549902B5C3B2C005AF503 /* Exercises.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercises.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		551549932B5C3B2C005AF503 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		551549952B5C3B2C005AF503 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5515499C2B5C3B2E005AF503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5515499F2B5C3B2E005AF503 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		551549A12B5C3B2E005AF503 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				551549A92B5C4100005AF503 /* ExercisesScreen */,
 				551549BA2B5DB98F005AF503 /* ExerciseDetail */,
 				551549932B5C3B2C005AF503 /* AppDelegate.swift */,
-				551549952B5C3B2C005AF503 /* SceneDelegate.swift */,
 				5515499C2B5C3B2E005AF503 /* Assets.xcassets */,
 				5515499E2B5C3B2E005AF503 /* LaunchScreen.storyboard */,
 				551549A12B5C3B2E005AF503 /* Info.plist */,
@@ -204,16 +201,8 @@
 			children = (
 				550DC7FE2B630DF900E8C692 /* UI */,
 				550DC7FD2B630DE100E8C692 /* Services */,
-				551549B62B5C8BED005AF503 /* Extensions */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		551549B62B5C8BED005AF503 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		551549BA2B5DB98F005AF503 /* ExerciseDetail */ = {
@@ -436,7 +425,6 @@
 				551549C82B601426005AF503 /* NavStackHolder.swift in Sources */,
 				551549C12B5DC5A2005AF503 /* ExerciseDetailViewModel.swift in Sources */,
 				551549942B5C3B2C005AF503 /* AppDelegate.swift in Sources */,
-				551549962B5C3B2C005AF503 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
