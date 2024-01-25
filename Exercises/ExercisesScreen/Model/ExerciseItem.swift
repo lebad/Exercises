@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExerciseItem: Identifiable {
+struct ExerciseItem: Identifiable, Equatable {
 	let id: Int
 	let name: String
 	let description: String

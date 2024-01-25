@@ -61,10 +61,15 @@ class ExerciseDetailViewModel: ObservableObject {
 		exerciseService.fetchExercises(with: exercise.variationsId)
 			.sink { [weak self] completion in
 				self?.isLoadingVariations = false
+				if case .failure(let error) = completion,
+					let _ = error as? ExerciseServiceError {
+					self?.shouldShowVariation = false
+				}
 			} receiveValue: { [weak self] exercises in
 				guard let self else {
 					return
 				}
+				self.shouldShowVariation = true
 				self.variationExercises = exercises.filter { $0.id != self.exercise.id }
 			}
 			.store(in: &cancellables)
