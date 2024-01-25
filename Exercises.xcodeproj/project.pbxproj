@@ -29,7 +29,6 @@
 		551549CA2B60168A005AF503 /* ViewDidLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */; };
 		551549CE2B61084C005AF503 /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549CD2B61084C005AF503 /* ExercisesView.swift */; };
 		551549D02B61392A005AF503 /* ExercisesScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */; };
-		551549DC2B626416005AF503 /* CustomHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551549DB2B626416005AF503 /* CustomHostingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +67,6 @@
 		551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoadModifier.swift; sourceTree = "<group>"; };
 		551549CD2B61084C005AF503 /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
 		551549CF2B61392A005AF503 /* ExercisesScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesScreenFactory.swift; sourceTree = "<group>"; };
-		551549DB2B626416005AF503 /* CustomHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHostingView.swift; sourceTree = "<group>"; };
 		9E8162C47D350EED5C6644DE /* Pods-Exercises.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exercises.debug.xcconfig"; path = "Target Support Files/Pods-Exercises/Pods-Exercises.debug.xcconfig"; sourceTree = "<group>"; };
 		9FCE88FE40843D19956FD93C /* Pods_Exercises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Exercises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,6 +106,26 @@
 				550DC7F72B62F8AA00E8C692 /* ExerciseServiceMock.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		550DC7FD2B630DE100E8C692 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				551549B32B5C65CE005AF503 /* ExerciseService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		550DC7FE2B630DF900E8C692 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				551549C72B601426005AF503 /* NavStackHolder.swift */,
+				551549B72B5C8C0D005AF503 /* Data+Parsing.swift */,
+				550DC7E32B62ED3300E8C692 /* String+UI.swift */,
+				551549C22B5FC5EB005AF503 /* Publisher+Assign.swift */,
+				551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		551549872B5C3B2C005AF503 = {
@@ -184,11 +202,9 @@
 		551549B52B5C8BDB005AF503 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				551549DB2B626416005AF503 /* CustomHostingView.swift */,
-				551549B32B5C65CE005AF503 /* ExerciseService.swift */,
+				550DC7FE2B630DF900E8C692 /* UI */,
+				550DC7FD2B630DE100E8C692 /* Services */,
 				551549B62B5C8BED005AF503 /* Extensions */,
-				551549C72B601426005AF503 /* NavStackHolder.swift */,
-				551549C92B60168A005AF503 /* ViewDidLoadModifier.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -196,9 +212,6 @@
 		551549B62B5C8BED005AF503 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				551549B72B5C8C0D005AF503 /* Data+Parsing.swift */,
-				551549C22B5FC5EB005AF503 /* Publisher+Assign.swift */,
-				550DC7E32B62ED3300E8C692 /* String+UI.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -209,7 +222,6 @@
 				551549C42B6000C7005AF503 /* ExerciseDetailFactory */,
 				551549BB2B5DB9A5005AF503 /* View */,
 				551549BC2B5DB9AC005AF503 /* ViewModel */,
-				551549BD2B5DB9C4005AF503 /* Model */,
 			);
 			path = ExerciseDetail;
 			sourceTree = "<group>";
@@ -228,13 +240,6 @@
 				551549C02B5DC5A2005AF503 /* ExerciseDetailViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		551549BD2B5DB9C4005AF503 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		551549C42B6000C7005AF503 /* ExerciseDetailFactory */ = {
@@ -416,7 +421,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				551549DC2B626416005AF503 /* CustomHostingView.swift in Sources */,
 				551549AE2B5C5A32005AF503 /* ExerciseItem.swift in Sources */,
 				551549B42B5C65CE005AF503 /* ExerciseService.swift in Sources */,
 				550DC7E42B62ED3300E8C692 /* String+UI.swift in Sources */,
